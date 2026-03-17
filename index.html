@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Base Wallet Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="nav-logo">⬡</span>
+      <span class="nav-title">BaseBoard</span>
+    </div>
+    <div class="nav-right">
+      <span id="networkBadge" class="network-badge hidden">⚠ Wrong Network</span>
+      <span id="connectedAddress" class="address-display hidden"></span>
+      <button id="copyAddressBtn" class="icon-btn hidden" title="Copy Address">⧉</button>
+      <button id="connectBtn" class="btn-primary">Connect Wallet</button>
+      <button id="disconnectBtn" class="btn-ghost hidden">Disconnect</button>
+      <button id="darkModeToggle" class="icon-btn" title="Toggle Dark Mode">◑</button>
+    </div>
+  </nav>
+
+  <!-- Network Warning Banner -->
+  <div id="networkWarning" class="network-warning hidden">
+    ⚠ You are on the wrong network. Please switch to <strong>Base Mainnet</strong>.
+    <button id="switchNetworkBtn" class="btn-warning-sm">Switch Now</button>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-container" id="mainContent">
+
+    <!-- Hero / Not Connected State -->
+    <section id="heroSection" class="hero-section">
+      <div class="hero-inner">
+        <div class="hero-icon">⬡</div>
+        <h1 class="hero-title">Base Wallet Dashboard</h1>
+        <p class="hero-sub">Connect your wallet to explore your Base network activity — balances, transactions, gas and more.</p>
+        <button id="heroConnectBtn" class="btn-primary btn-lg">Connect Wallet</button>
+      </div>
+    </section>
+
+    <!-- Dashboard (shown after connect) -->
+    <section id="dashboardSection" class="dashboard hidden">
+
+      <!-- Top Row -->
+      <div class="dashboard-grid top-grid">
+
+        <!-- Wallet Card -->
+        <div class="card wallet-card" id="walletCard">
+          <div class="card-label">Connected Wallet</div>
+          <div class="wallet-address" id="walletAddress">—</div>
+          <div class="wallet-balance-row">
+            <div class="balance-block">
+              <span class="balance-label">ETH Balance</span>
+              <span class="balance-value" id="ethBalance">—</span>
+            </div>
+          </div>
+          <button id="refreshBalancesBtn" class="btn-ghost btn-sm">↺ Refresh</button>
+        </div>
+
+        <!-- Gas Tracker Card -->
+        <div class="card gas-card" id="gasCard">
+          <div class="card-label">Gas Tracker <span class="auto-tag">auto</span></div>
+          <div class="gas-main" id="gasMain">—</div>
+          <div class="gas-level-badge" id="gasLevelBadge">—</div>
+          <div class="gas-trend" id="gasTrend">—</div>
+          <div class="gas-history-row" id="gasHistoryRow"></div>
+        </div>
+
+      </div>
+
+      <!-- Token Balances -->
+      <div class="card full-card">
+        <div class="card-header-row">
+          <div class="card-label">Token Balances</div>
+          <div id="tokenSpinner" class="spinner hidden"></div>
+        </div>
+        <div id="tokenList" class="token-list">
+          <div class="empty-state">Loading tokens...</div>
+        </div>
+      </div>
+
+      <!-- Transaction History -->
+      <div class="card full-card">
+        <div class="card-header-row">
+          <div class="card-label">Transaction History</div>
+          <div class="tx-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="sent">Sent</button>
+            <button class="filter-btn" data-filter="received">Received</button>
+          </div>
+          <div id="txSpinner" class="spinner hidden"></div>
+        </div>
+        <div id="txList" class="tx-list">
+          <div class="empty-state">Loading transactions...</div>
+        </div>
+        <div class="pagination-row" id="paginationRow">
+          <button id="prevPage" class="btn-ghost btn-sm" disabled>← Prev</button>
+          <span id="pageIndicator" class="page-indicator">Page 1</span>
+          <button id="nextPage" class="btn-ghost btn-sm">Next →</button>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer">
+    <div class="footer-inner">
+      <span>BaseBoard — Built on <a href="https://base.org" target="_blank">Base</a></span>
+      <span class="footer-right">prince_base_commits · 2024</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="config/constants.js"></script>
+  <script src="utils/format.js"></script>
+  <script src="utils/shortAddress.js"></script>
+  <script src="utils/timeAgo.js"></script>
+  <script src="abi/erc20.json" type="application/json" id="erc20ABI"></script>
+  <script src="wallet.js"></script>
+  <script src="tokens.js"></script>
+  <script src="transactions.js"></script>
+  <script src="gas.js"></script>
+  <script src="components/navbar.js"></script>
+  <script src="components/walletCard.js"></script>
+  <script src="components/tokenList.js"></script>
+  <script src="components/txCard.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="app.js"></script>
+
+</body>
+  </html>
 
